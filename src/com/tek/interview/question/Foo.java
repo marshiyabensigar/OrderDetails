@@ -1,5 +1,7 @@
 package com.tek.interview.question;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -121,7 +123,7 @@ class Order {
 class calculator {
 
 	public static double rounding(double value) {
-		return ( (int) (value * 100)) / 100;
+		return ( Math.round(value*100.0)/100.0);
 	}
 
 	/**
@@ -137,7 +139,7 @@ class calculator {
 		// Iterate through the orders
 		for (Map.Entry<String, Order> entry : o.entrySet()) {
 			System.out.println("*******" + entry.getKey() + "*******");
-			grandtotal = 0;
+			
 
 			Order r = entry.getValue();
 
@@ -158,27 +160,27 @@ class calculator {
 				}
 
 				// Calculate the total price
-				double totalprice = r.get(i).getItem().getPrice() + Math.floor(tax);
+				double totalprice = r.get(i).getItem().getPrice() + tax;
 
 				// Print out the item's total price
-				System.out.println(r.get(i).getItem().getDescription() + ": " + Math.floor(totalprice));
-
+				System.out.println(r.get(i).getItem().getDescription() + ": " + rounding(totalprice));
+				
 				// Keep a running total
 				totalTax += tax;
 				total += r.get(i).getItem().getPrice();
 			}
 
 			// Print out the total taxes
-			System.out.println("Sales Tax: " + Math.floor(totalTax));
+			System.out.println("Sales Tax: " + rounding(totalTax));
 
 			total = total + totalTax;
 
 			// Print out the total amount
-			System.out.println("Total: " + Math.floor(total * 100) / 100);
+			System.out.println("Total: " + rounding(total));
 			grandtotal += total;
 		}
 
-		System.out.println("Sum of orders: " + Math.floor(grandtotal * 100) / 100);
+		System.out.println("Sum of orders: " + rounding(grandtotal));
 	}
 }
 
@@ -197,18 +199,18 @@ public class Foo {
 		c.add(new OrderLine(new Item("chocolate bar", (float) 0.85), 1));
 
 		o.put("Order 1", c);
-
+		
 		// Reuse cart for an other order
 		c = new Order();
-
+		
 		c.add(new OrderLine(new Item("imported box of chocolate", 10), 1));
 		c.add(new OrderLine(new Item("imported bottle of perfume", (float) 47.50), 1));
 
 		o.put("Order 2", c);
-
+		
 		// Reuse cart for an other order
 		c = new Order();
-
+		
 		c.add(new OrderLine(new Item("Imported bottle of perfume", (float) 27.99), 1));
 		c.add(new OrderLine(new Item("bottle of perfume", (float) 18.99), 1));
 		c.add(new OrderLine(new Item("packet of headache pills", (float) 9.75), 1));
