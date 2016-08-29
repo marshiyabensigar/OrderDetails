@@ -1,9 +1,6 @@
 package com.tek.interview.question;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +80,7 @@ class OrderLine {
 		}
 		assert quantity > 0;
 		this.item = item;
-		quantity = quantity;
+		
 	}
 
 	public Item getItem() {
@@ -191,8 +188,6 @@ public class Foo {
 		Map<String, Order> o = new LinkedHashMap<String, Order>();
 
 		Order c = new Order();
-
-		double grandTotal = 0;
 
 		c.add(new OrderLine(new Item("book", (float) 12.49), 1));
 		c.add(new OrderLine(new Item("music CD", (float) 14.99), 1));
