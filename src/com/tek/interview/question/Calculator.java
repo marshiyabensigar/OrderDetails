@@ -5,6 +5,7 @@ import java.util.Map;
 class Calculator {
 
 	public static double rounding(double value) {
+		//Modified to round to 2 decimal places
 		return ( Math.round(value*100.0)/100.0);
 	}
 
@@ -22,46 +23,22 @@ class Calculator {
 		for (Map.Entry<String, Order> entry : o.entrySet()) {
 			System.out.println("*******" + entry.getKey() + "*******");
 			
-
 			Order r = entry.getValue();
 
-			double totalTax = 0;
-			double total = 0;
-
 			// Iterate through the items in the order
-			for (int i = 0; i <= r.size()-1; i++) {
+			for (OrderLine orderLine :r.getOrderLines()) {
+                // Print out the item's total price
+                System.out.println(orderLine.getItem().getDescription() + ": " + orderLine.getItem().getTotalPrice());
+            }
 
-				// Calculate the taxes
-				double tax = 0;
+            // Print out the total taxes
+            System.out.println("Sales Tax: " + r.getTax());
 
-				if (r.get(i).getItem().getDescription().contains("imported")) {
-					tax = rounding(r.get(i).getItem().getPrice() * 0.15); // Extra 5% tax on
-					// imported items
-				} else {
-					tax = rounding(r.get(i).getItem().getPrice() * 0.10);
-				}
-
-				// Calculate the total price
-				double totalprice = r.get(i).getItem().getPrice() + tax;
-
-				// Print out the item's total price
-				System.out.println(r.get(i).getItem().getDescription() + ": " + rounding(totalprice));
-				
-				// Keep a running total
-				totalTax += tax;
-				total += r.get(i).getItem().getPrice();
-			}
-
-			// Print out the total taxes
-			System.out.println("Sales Tax: " + rounding(totalTax));
-
-			total = total + totalTax;
-
-			// Print out the total amount
-			System.out.println("Total: " + rounding(total));
-			grandtotal += total;
-		}
-
+            // Print out the total amount
+            System.out.println("Total: " + r.getTotalPrice());
+            grandtotal += r.getTotalPrice();
+        }
 		System.out.println("Sum of orders: " + rounding(grandtotal));
+			
 	}
 }

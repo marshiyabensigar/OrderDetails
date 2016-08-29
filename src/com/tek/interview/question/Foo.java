@@ -36,31 +36,32 @@ public class Foo {
 
 	public static void main(String[] args) throws Exception {
 
+		//Changed to LinkedHashMap to maintain the insertion order
 		Map<String, Order> o = new LinkedHashMap<String, Order>();
 
 		Order c = new Order();
 
-		c.add(new OrderLine(new Item("book", (float) 12.49), 1));
-		c.add(new OrderLine(new Item("music CD", (float) 14.99), 1));
-		c.add(new OrderLine(new Item("chocolate bar", (float) 0.85), 1));
+		c.add(new OrderLine(new Item("Book", (float) 12.49), 1));
+		c.add(new OrderLine(new Item("Music CD", (float) 14.99), 1));
+		c.add(new OrderLine(new Item("Chocolate bar", (float) 0.85), 1));
 
 		o.put("Order 1", c);
 		
-		// Reuse cart for an other order
+		// Reuse cart for another order
 		c = new Order();
 		
-		c.add(new OrderLine(new Item("imported box of chocolate", 10), 1));
-		c.add(new OrderLine(new Item("imported bottle of perfume", (float) 47.50), 1));
+		c.add(new OrderLine(new Item("Imported box of chocolate", 10), 1));
+		c.add(new OrderLine(new Item("Imported bottle of perfume", (float) 47.50), 1));
 
 		o.put("Order 2", c);
 		
-		// Reuse cart for an other order
+		// Reuse cart for another order
 		c = new Order();
 		
 		c.add(new OrderLine(new Item("Imported bottle of perfume", (float) 27.99), 1));
-		c.add(new OrderLine(new Item("bottle of perfume", (float) 18.99), 1));
-		c.add(new OrderLine(new Item("packet of headache pills", (float) 9.75), 1));
-		c.add(new OrderLine(new Item("box of importd chocolates", (float) 11.25), 1));
+		c.add(new OrderLine(new Item("Bottle of perfume", (float) 18.99), 1));
+		c.add(new OrderLine(new Item("Packet of headache pills", (float) 9.75), 1));
+		c.add(new OrderLine(new Item("Box of imported chocolates", (float) 11.25), 1));
 
 		o.put("Order 3", c);
 
