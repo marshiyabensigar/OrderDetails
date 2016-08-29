@@ -1,8 +1,6 @@
 package com.tek.interview.question;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /* ****************************************************************************************
@@ -34,153 +32,6 @@ Sum of orders: 153.81
 </pre>
  
 ******************************************************************************************** */
-
-/*
- * represents an item, contains a price and a description.
- *
- */
-class Item {
-
-	private String description;
-	private float price;
-
-	public Item(String description, float price) {
-		super();
-		this.description = description;
-		this.price = price;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-}
-
-/*
- * represents an order line which contains the @link Item and the quantity.
- *
- */
-class OrderLine {
-
-	private int quantity;
-	private Item item;
-
-	/*
-	 * @param item Item of the order
-	 * 
-	 * @param quantity Quantity of the item
-	 */
-	public OrderLine(Item item, int quantity) throws Exception {
-		if (item == null) {
-			System.err.println("ERROR - Item is NULL");
-			throw new Exception("Item is NULL");
-		}
-		assert quantity > 0;
-		this.item = item;
-		
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-}
-
-class Order {
-
-	private List<OrderLine> orderLines = new ArrayList<>();
-
-	public void add(OrderLine o) throws Exception {
-		if (o == null) {
-			System.err.println("ERROR - Order is NULL");
-			throw new IllegalArgumentException("Order is NULL");
-		}
-		orderLines.add(o);
-	}
-
-	public int size() {
-		return orderLines.size();
-	}
-
-	public OrderLine get(int i) {
-		return orderLines.get(i);
-	}
-
-	public void clear() {
-		this.orderLines.clear();
-	}
-}
-
-class calculator {
-
-	public static double rounding(double value) {
-		return ( Math.round(value*100.0)/100.0);
-	}
-
-	/**
-	 * receives a collection of orders. For each order, iterates on the order lines and calculate the total price which
-	 * is the item's price * quantity * taxes.
-	 * 
-	 * For each order, print the total Sales Tax paid and Total price without taxes for this order
-	 */
-	public void calculate(Map<String, Order> o) {
-
-		double grandtotal = 0;
-
-		// Iterate through the orders
-		for (Map.Entry<String, Order> entry : o.entrySet()) {
-			System.out.println("*******" + entry.getKey() + "*******");
-			
-
-			Order r = entry.getValue();
-
-			double totalTax = 0;
-			double total = 0;
-
-			// Iterate through the items in the order
-			for (int i = 0; i <= r.size()-1; i++) {
-
-				// Calculate the taxes
-				double tax = 0;
-
-				if (r.get(i).getItem().getDescription().contains("imported")) {
-					tax = rounding(r.get(i).getItem().getPrice() * 0.15); // Extra 5% tax on
-					// imported items
-				} else {
-					tax = rounding(r.get(i).getItem().getPrice() * 0.10);
-				}
-
-				// Calculate the total price
-				double totalprice = r.get(i).getItem().getPrice() + tax;
-
-				// Print out the item's total price
-				System.out.println(r.get(i).getItem().getDescription() + ": " + rounding(totalprice));
-				
-				// Keep a running total
-				totalTax += tax;
-				total += r.get(i).getItem().getPrice();
-			}
-
-			// Print out the total taxes
-			System.out.println("Sales Tax: " + rounding(totalTax));
-
-			total = total + totalTax;
-
-			// Print out the total amount
-			System.out.println("Total: " + rounding(total));
-			grandtotal += total;
-		}
-
-		System.out.println("Sum of orders: " + rounding(grandtotal));
-	}
-}
-
 public class Foo {
 
 	public static void main(String[] args) throws Exception {
@@ -213,7 +64,7 @@ public class Foo {
 
 		o.put("Order 3", c);
 
-		new calculator().calculate(o);
+		new Calculator().calculate(o);
 
 	}
 }
